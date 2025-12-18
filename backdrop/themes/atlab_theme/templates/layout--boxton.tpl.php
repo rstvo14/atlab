@@ -1,35 +1,26 @@
 <?php
 /**
  * @file
- * Template for the Boxton layout - ATLAB Single Page (Pixel Perfect Rebuild)
+ * Template for the Boxton layout - ATLAB Single Page (Optimized & Snappy)
  */
 ?>
 <!DOCTYPE html>
-<html lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>">
+<html lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"
+    class="scroll-smooth bg-slate-950">
 
 <head>
     <?php print $head; ?>
     <title><?php print $head_title; ?></title>
-    <!-- Import Tailwind CSS via CDN for Pixel Perfect Matching of Reference -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        slate: {
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
-                        },
-                        teal: {
-                400: '#2dd4bf',
-                 500: '#14b8a6',
-                        },
-                        cyan: {
-                            400: '#22d3ee',
-                            500: '#06b6d4',
-                        }
+                        slate: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        teal: { 400: '#2dd4bf', 500: '#14b8a6' },
+                        cyan: { 400: '#22d3ee', 500: '#06b6d4' }
                     },
                     animation: {
                         pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -39,22 +30,44 @@
         }
     </script>
     <style>
-        /* Hide scrollbar for Chrome, Safari and Opera */
+        /* Modern Scrollbar */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
 
-        /* Hide scrollbar for IE, Edge and Firefox */
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
 
-        /* Animation Base Classes */
+        /* CRITICAL: Force Background to be Dark everywhere */
+        html,
+        body {
+            background-color: #020617 !important;
+            /* bg-slate-950 */
+            overscroll-behavior-y: none;
+            /* Disables elastic bounce on some browsers if desired, but color fix is better */
+        }
+
+        /* Fix Admin Menu Styling to match Dark Theme */
+        #admin-menu,
+        #admin-menu-wrapper {
+            background-color: #020617 !important;
+            border-bottom: 1px solid #1e293b !important;
+            color: #fff !important;
+            box-shadow: none !important;
+        }
+
+        #admin-menu li.admin-menu-icon a {
+            background-color: #020617 !important;
+        }
+
+        /* Optimized Animation Classes - Faster & Snappier */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            /* Faster duration */
         }
 
         .reveal-visible {
@@ -62,7 +75,7 @@
             transform: translate(0, 0) !important;
         }
 
-        /* Blob animations if needed */
+        /* Optimized Blobs */
         @keyframes blob {
             0% {
                 transform: translate(0px, 0px) scale(1);
@@ -82,7 +95,7 @@
         }
 
         .animate-blob {
-            animation: blob 7s infinite;
+            animation: blob 10s infinite;
         }
     </style>
     <!-- Lucide Icons -->
@@ -93,12 +106,15 @@
 
 <body class="<?php print implode(' ', $classes); ?> bg-slate-950 text-white font-sans antialiased" <?php print backdrop_attributes($attributes); ?>>
 
+    <!-- Sentinel for IntersectionObserver Header Logic (Zero Paint Cost) -->
+    <div id="top-sentinel" class="absolute top-0 left-0 w-full h-4 z-[-1]"></div>
+
     <!-- React Root Structure Replica -->
     <div id="root">
         <div class="min-h-screen bg-slate-950 text-white overflow-x-hidden relative">
 
             <!-- Animated Background Blobs -->
-            <div class="fixed inset-0 overflow-hidden pointer-events-none">
+            <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
                 <div
                     class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full blur-3xl opacity-10 animate-blob">
                 </div>
@@ -111,18 +127,19 @@
             </div>
 
             <!-- Header -->
-            <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent reveal-on-scroll"
-                id="main-header">
+            <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between h-16 sm:h-20">
                         <div class="flex-shrink-0">
-                            <a href="<?php print $front_page; ?>" class="text-2xl sm:text-3xl font-bold tracking-tight">
+                            <a href="<?php print $front_page; ?>"
+                                class="text-2xl sm:text-3xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity"
+                                aria-label="ATLAB Home">
                                 <span
                                     class="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">AT</span><span
                                     class="text-white ml-1">LAB</span>
                             </a>
                         </div>
-                        <nav class="hidden lg:flex items-center space-x-8">
+                        <nav class="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
                             <a href="#portfolio"
                                 class="text-sm font-medium text-gray-300 hover:text-teal-400 transition-colors duration-200 relative group">Our
                                 Work<span
@@ -143,22 +160,24 @@
                                     class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span></a>
                         </nav>
                         <div class="hidden lg:flex items-center space-x-4">
-                            <button class="p-2 text-gray-300 hover:text-teal-400 transition-colors duration-200"><i
-                                    data-lucide="phone" class="w-5 h-5"></i></button>
-                            <button
+                            <button class="p-2 text-gray-300 hover:text-teal-400 transition-colors duration-200"
+                                aria-label="Call Us"><i data-lucide="phone" class="w-5 h-5 pointer-events-none"
+                                    aria-hidden="true"></i></button>
+                            <a href="#contact"
                                 class="inline-flex items-center justify-center text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-10 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:shadow-teal-500/50 transition-all duration-300">Let's
-                                Talk</button>
+                                Talk</a>
                         </div>
                         <button
-                            class="lg:hidden p-2 text-gray-300 hover:text-teal-400 transition-colors duration-200 mobile-menu-toggle">
-                            <i data-lucide="menu" class="w-6 h-6"></i>
+                            class="lg:hidden p-2 text-gray-300 hover:text-teal-400 transition-colors duration-200 mobile-menu-toggle"
+                            aria-label="Open Mobile Menu">
+                            <i data-lucide="menu" class="w-6 h-6 pointer-events-none" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
             </header>
 
             <main>
-                <!-- Hero Section -->
+                <!-- Hero Section - Immediate Load Priority -->
                 <section
                     class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 overflow-hidden">
                     <div class="text-center relative z-10 max-w-6xl mx-auto">
@@ -226,7 +245,7 @@
                             </p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- Card 1 -->
+                            <!-- Cards with Aria hidden icons -->
                             <div
                                 class="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300 overflow-hidden reveal-on-scroll">
                                 <div class="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300"
@@ -235,7 +254,7 @@
                                 <div class="relative z-10">
                                     <div
                                         class="inline-flex p-4 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500 mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                        <i data-lucide="smartphone" class="w-8 h-8 text-white"></i>
+                                        <i data-lucide="smartphone" class="w-8 h-8 text-white" aria-hidden="true"></i>
                                     </div>
                                     <h3
                                         class="text-2xl font-bold mb-4 group-hover:text-teal-400 transition-colors duration-300">
@@ -244,13 +263,12 @@
                                         prioritize performance, accessibility, and user delight across all devices.</p>
                                 </div>
                             </div>
-                            <!-- Card 2 -->
                             <div class="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300 overflow-hidden reveal-on-scroll"
                                 style="transition-delay: 100ms">
                                 <div class="relative z-10">
                                     <div
                                         class="inline-flex p-4 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                        <i data-lucide="globe" class="w-8 h-8 text-white"></i>
+                                        <i data-lucide="globe" class="w-8 h-8 text-white" aria-hidden="true"></i>
                                     </div>
                                     <h3
                                         class="text-2xl font-bold mb-4 group-hover:text-teal-400 transition-colors duration-300">
@@ -259,13 +277,12 @@
                                         frameworks, designed to grow with your business needs.</p>
                                 </div>
                             </div>
-                            <!-- Card 3 -->
                             <div class="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300 overflow-hidden reveal-on-scroll"
                                 style="transition-delay: 200ms">
                                 <div class="relative z-10">
                                     <div
                                         class="inline-flex p-4 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                        <i data-lucide="palette" class="w-8 h-8 text-white"></i>
+                                        <i data-lucide="palette" class="w-8 h-8 text-white" aria-hidden="true"></i>
                                     </div>
                                     <h3
                                         class="text-2xl font-bold mb-4 group-hover:text-teal-400 transition-colors duration-300">
@@ -274,13 +291,12 @@
                                         aesthetics with functionality, creating intuitive digital products.</p>
                                 </div>
                             </div>
-                            <!-- Card 4 -->
                             <div class="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300 overflow-hidden reveal-on-scroll"
                                 style="transition-delay: 300ms">
                                 <div class="relative z-10">
                                     <div
                                         class="inline-flex p-4 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                        <i data-lucide="zap" class="w-8 h-8 text-white"></i>
+                                        <i data-lucide="zap" class="w-8 h-8 text-white" aria-hidden="true"></i>
                                     </div>
                                     <h3
                                         class="text-2xl font-bold mb-4 group-hover:text-teal-400 transition-colors duration-300">
@@ -314,7 +330,8 @@
                                         class="absolute inset-0 bg-gradient-to-br from-teal-500 to-cyan-500 opacity-20">
                                     </div>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <span class="text-6xl font-bold text-white opacity-20">X</span>
+                                        <span class="text-6xl font-bold text-white opacity-20" role="img"
+                                            aria-label="X12 Logo Placeholder">X</span>
                                     </div>
                                 </div>
                                 <div class="p-8">
@@ -334,9 +351,10 @@
                                             class="px-3 py-1 bg-slate-800/50 text-gray-300 rounded-full text-sm border border-slate-700/50">FinTech</span>
                                     </div>
                                     <button
-                                        class="inline-flex items-center text-teal-400 hover:text-teal-300 group/btn transition-all duration-300">View
-                                        Project <i data-lucide="external-link"
-                                            class="ml-2 w-4 h-4 group-hover/btn:translate-x-1"></i></button>
+                                        class="inline-flex items-center text-teal-400 hover:text-teal-300 group/btn transition-all duration-300 font-semibold"
+                                        aria-label="View X12 Project">View Project <i data-lucide="external-link"
+                                            class="ml-2 w-4 h-4 group-hover/btn:translate-x-1"
+                                            aria-hidden="true"></i></button>
                                 </div>
                             </div>
                             <!-- Project 2 -->
@@ -348,7 +366,8 @@
                                         class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-500 opacity-20">
                                     </div>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <span class="text-6xl font-bold text-white opacity-20">P</span>
+                                        <span class="text-6xl font-bold text-white opacity-20" role="img"
+                                            aria-label="Project Drawdown Logo Placeholder">P</span>
                                     </div>
                                 </div>
                                 <div class="p-8">
@@ -368,16 +387,17 @@
                                             class="px-3 py-1 bg-slate-800/50 text-gray-300 rounded-full text-sm border border-slate-700/50">Impact</span>
                                     </div>
                                     <button
-                                        class="inline-flex items-center text-teal-400 hover:text-teal-300 group/btn transition-all duration-300">View
-                                        Project <i data-lucide="external-link"
-                                            class="ml-2 w-4 h-4 group-hover/btn:translate-x-1"></i></button>
+                                        class="inline-flex items-center text-teal-400 hover:text-teal-300 group/btn transition-all duration-300 font-semibold"
+                                        aria-label="View Project Drawdown">View Project <i data-lucide="external-link"
+                                            class="ml-2 w-4 h-4 group-hover/btn:translate-x-1"
+                                            aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
                         <div class="text-center reveal-on-scroll">
-                            <button
+                            <a href="#"
                                 class="inline-flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-semibold px-8 py-6 text-lg rounded-full shadow-xl hover:shadow-teal-500/50 transition-all duration-300 transform hover:scale-105">View
-                                All Projects</button>
+                                All Projects</a>
                         </div>
                     </div>
                 </section>
@@ -395,7 +415,7 @@
                                 class="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300 reveal-on-scroll">
                                 <div
                                     class="inline-flex p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <i data-lucide="building-2" class="w-6 h-6 text-teal-400"></i>
+                                    <i data-lucide="building-2" class="w-6 h-6 text-teal-400" aria-hidden="true"></i>
                                 </div>
                                 <h3
                                     class="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors duration-300">
@@ -407,7 +427,7 @@
                                 style="transition-delay: 100ms">
                                 <div
                                     class="inline-flex p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <i data-lucide="heart" class="w-6 h-6 text-teal-400"></i>
+                                    <i data-lucide="heart" class="w-6 h-6 text-teal-400" aria-hidden="true"></i>
                                 </div>
                                 <h3
                                     class="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors duration-300">
@@ -419,7 +439,7 @@
                                 style="transition-delay: 200ms">
                                 <div
                                     class="inline-flex p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <i data-lucide="leaf" class="w-6 h-6 text-teal-400"></i>
+                                    <i data-lucide="leaf" class="w-6 h-6 text-teal-400" aria-hidden="true"></i>
                                 </div>
                                 <h3
                                     class="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors duration-300">
@@ -430,7 +450,7 @@
                                 class="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300 reveal-on-scroll">
                                 <div
                                     class="inline-flex p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <i data-lucide="shopping-bag" class="w-6 h-6 text-teal-400"></i>
+                                    <i data-lucide="shopping-bag" class="w-6 h-6 text-teal-400" aria-hidden="true"></i>
                                 </div>
                                 <h3
                                     class="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors duration-300">
@@ -441,7 +461,8 @@
                                 style="transition-delay: 100ms">
                                 <div
                                     class="inline-flex p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <i data-lucide="graduation-cap" class="w-6 h-6 text-teal-400"></i>
+                                    <i data-lucide="graduation-cap" class="w-6 h-6 text-teal-400"
+                                        aria-hidden="true"></i>
                                 </div>
                                 <h3
                                     class="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors duration-300">
@@ -452,13 +473,22 @@
                                 style="transition-delay: 200ms">
                                 <div
                                     class="inline-flex p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <i data-lucide="laptop" class="w-6 h-6 text-teal-400"></i>
+                                    <i data-lucide="laptop" class="w-6 h-6 text-teal-400" aria-hidden="true"></i>
                                 </div>
                                 <h3
                                     class="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors duration-300">
                                     Technology</h3>
                                 <p class="text-gray-400 text-sm leading-relaxed">Cutting-edge solutions.</p>
                             </div>
+                        </div>
+                        <div
+                            class="mt-16 text-center bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-sm rounded-2xl p-8 sm:p-12 border border-slate-700/50 reveal-on-scroll">
+                            <h3 class="text-2xl sm:text-3xl font-bold mb-4">Don't see your industry?</h3>
+                            <p class="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">Our mobile-first methodology adapts
+                                to any sector. Let's discuss how we can help transform your digital presence.</p>
+                            <a href="#contact"
+                                class="inline-block text-teal-400 hover:text-teal-300 font-semibold transition-colors duration-200">Get
+                                in touch →</a>
                         </div>
                     </div>
                 </section>
@@ -483,7 +513,8 @@
                                         <div class="flex items-start space-x-4 group">
                                             <div
                                                 class="p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 group-hover:from-teal-500/20 group-hover:to-cyan-500/20 transition-all duration-300">
-                                                <i data-lucide="mail" class="w-6 h-6 text-teal-400"></i>
+                                                <i data-lucide="mail" class="w-6 h-6 text-teal-400"
+                                                    aria-hidden="true"></i>
                                             </div>
                                             <div>
                                                 <div class="font-semibold mb-1">Email</div><a
@@ -494,7 +525,8 @@
                                         <div class="flex items-start space-x-4 group">
                                             <div
                                                 class="p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 group-hover:from-teal-500/20 group-hover:to-cyan-500/20 transition-all duration-300">
-                                                <i data-lucide="globe" class="w-6 h-6 text-teal-400"></i>
+                                                <i data-lucide="globe" class="w-6 h-6 text-teal-400"
+                                                    aria-hidden="true"></i>
                                             </div>
                                             <div>
                                                 <div class="font-semibold mb-1">Website</div><a href="https://atlab.mx"
@@ -504,7 +536,8 @@
                                         <div class="flex items-start space-x-4 group">
                                             <div
                                                 class="p-3 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/10 group-hover:from-teal-500/20 group-hover:to-cyan-500/20 transition-all duration-300">
-                                                <i data-lucide="map-pin" class="w-6 h-6 text-teal-400"></i>
+                                                <i data-lucide="map-pin" class="w-6 h-6 text-teal-400"
+                                                    aria-hidden="true"></i>
                                             </div>
                                             <div>
                                                 <div class="font-semibold mb-1">Location</div>
@@ -520,16 +553,16 @@
                                     class="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50"
                                     onclick="event.preventDefault()">
                                     <div class="space-y-6">
-                                        <div><label class="block text-sm font-semibold mb-2">Name</label><input
-                                                type="text"
+                                        <div><label class="block text-sm font-semibold mb-2"
+                                                for="frm-name">Name</label><input type="text" id="frm-name"
                                                 class="w-full px-4 py-3 bg-slate-900/50 border border-slate-700/50 rounded-lg focus:outline-none focus:border-teal-500 transition-colors duration-200 text-white"
                                                 placeholder="Your name"></div>
-                                        <div><label class="block text-sm font-semibold mb-2">Email</label><input
-                                                type="email"
+                                        <div><label class="block text-sm font-semibold mb-2"
+                                                for="frm-email">Email</label><input type="email" id="frm-email"
                                                 class="w-full px-4 py-3 bg-slate-900/50 border border-slate-700/50 rounded-lg focus:outline-none focus:border-teal-500 transition-colors duration-200 text-white"
                                                 placeholder="your@email.com"></div>
-                                        <div><label class="block text-sm font-semibold mb-2">Message</label><textarea
-                                                rows="5"
+                                        <div><label class="block text-sm font-semibold mb-2"
+                                                for="frm-msg">Message</label><textarea id="frm-msg" rows="5"
                                                 class="w-full px-4 py-3 bg-slate-900/50 border border-slate-700/50 rounded-lg focus:outline-none focus:border-teal-500 transition-colors duration-200 text-white resize-none"
                                                 placeholder="Tell us about your project..."></textarea></div>
                                         <button
@@ -574,21 +607,25 @@
                             <p class="font-semibold mb-4">Connect With Us</p>
                             <div class="flex space-x-4">
                                 <button
-                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"><i
-                                        data-lucide="twitter"
-                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"></i></button>
+                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"
+                                    aria-label="Twitter"><i data-lucide="twitter"
+                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"
+                                        aria-hidden="true"></i></button>
                                 <button
-                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"><i
-                                        data-lucide="linkedin"
-                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"></i></button>
+                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"
+                                    aria-label="LinkedIn"><i data-lucide="linkedin"
+                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"
+                                        aria-hidden="true"></i></button>
                                 <button
-                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"><i
-                                        data-lucide="github"
-                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"></i></button>
+                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"
+                                    aria-label="GitHub"><i data-lucide="github"
+                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"
+                                        aria-hidden="true"></i></button>
                                 <button
-                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"><i
-                                        data-lucide="instagram"
-                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"></i></button>
+                                    class="p-2 rounded-lg bg-slate-800/50 hover:bg-teal-500/10 border border-slate-700/50 hover:border-teal-500/50 transition-all duration-300"
+                                    aria-label="Instagram"><i data-lucide="instagram"
+                                        class="w-5 h-5 text-gray-400 hover:text-teal-400"
+                                        aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
@@ -610,42 +647,51 @@
         </div>
     </div>
 
-    <!-- Init Icons and Animation Script -->
+    <!-- Optimization Script -->
     <script>
-        // Icons
+        // Init Icons
         lucide.createIcons();
 
-        // Reveal Animation Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
+        document.addEventListener('DOMContentLoaded', function () {
+            // OPTIMIZATION 1: Use IntersectionObserver for Reveal Animations
+            // This is memory efficient (unobserves) and efficient (only triggers on visibility)
+            const revealObserver = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('reveal-visible');
-                        observer.unobserve(entry.target); 
+                        obs.unobserve(entry.target); // Release memory
                     }
                 });
-            }, observerOptions);
-
-            const animatedElements = document.querySelectorAll('.reveal-on-scroll');
-            animatedElements.forEach(el => observer.observe(el));
-
-            // Header Scroll Effect
-            const header = document.getElementById('main-header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 20) {
-                    header.classList.add('bg-slate-950/80', 'backdrop-blur-md', 'border-b', 'border-slate-800');
-                    header.classList.remove('bg-transparent');
-                } else {
-                    header.classList.remove('bg-slate-950/80', 'backdrop-blur-md', 'border-b', 'border-slate-800');
-                    header.classList.add('bg-transparent');
-                }
+            }, {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '100px'
             });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+            // OPTIMIZATION 2: Efficient Header Scroll with Sentinel
+            // Instead of a scroll event listener firing every pixel, we listen for a 0-height sentinel at top
+            const header = document.getElementById('main-header');
+            const sentinel = document.getElementById('top-sentinel');
+
+            if (header && sentinel) {
+                const headerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // If sentinel is NOT intersecting, it means we scrolled past the top
+                        if (!entry.isIntersecting) {
+                            header.classList.add('bg-slate-950/80', 'backdrop-blur-md');
+                            header.classList.remove('bg-transparent');
+                        } else {
+                            // We are at the top
+                            header.classList.remove('bg-slate-950/80', 'backdrop-blur-md');
+                            header.classList.add('bg-transparent');
+                        }
+                    });
+                });
+
+                headerObserver.observe(sentinel);
+            }
         });
     </script>
 
