@@ -62,18 +62,23 @@
             background-color: #020617 !important;
         }
 
-        /* Optimized Animation Classes - Faster & Snappier */
+        /* REVEAL ANIMATIONS - Reference Style */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-            /* Faster duration */
+            transform: translateY(30px);
+            transition: all 0.7s ease-out;
+            will-change: opacity, transform;
+        }
+        
+        .reveal-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
-        .reveal-visible {
-            opacity: 1;
-            transform: translate(0, 0) !important;
-        }
+        /* Stagger delays for grid items if needed, though usually handled inline or via loop index in JS */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
 
         /* Optimized Blobs */
         @keyframes blob {
@@ -653,19 +658,19 @@
         lucide.createIcons();
 
         document.addEventListener('DOMContentLoaded', function () {
-            // OPTIMIZATION 1: Use IntersectionObserver for Reveal Animations
-            // This is memory efficient (unobserves) and efficient (only triggers on visibility)
+            // ANIMATION OBSERVER: Reference Implementation
+            // Matches the standard feel: triggers slightly before element enters view (50px buffer)
             const revealObserver = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('reveal-visible');
-                        obs.unobserve(entry.target); // Release memory
+                        obs.unobserve(entry.target);
                     }
                 });
             }, {
                 root: null,
-                threshold: 0.1,
-                rootMargin: '100px'
+                threshold: 0.1, 
+                rootMargin: '0px 0px -50px 0px' /* Triggers just as it enters or slightly before */
             });
 
             document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
