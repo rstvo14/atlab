@@ -1,0 +1,105 @@
+// _header.scss
+// Fixed Minimal Header
+
+.l-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba($color-bg-dark, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+
+    &.scrolled {
+        background: rgba($color-bg-dark, 0.95);
+        padding: 0.8rem 0;
+    }
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// Logo
+.site-logo {
+    font-family: $font-primary;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: $color-primary;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+
+    span {
+        color: $color-text-light;
+    }
+}
+
+// Navigation (Desktop)
+.header-nav {
+    display: none;
+
+    @include respond-to($large-screen) {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    a {
+        color: $color-text-light;
+        text-decoration: none;
+        font-family: $font-secondary;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.2s;
+
+        &:hover,
+        &.active {
+            color: $color-primary;
+        }
+    }
+}
+
+// Header Actions (CTA)
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-cta {
+    background: $color-primary;
+    color: #fff;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px; // Pill shape
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+
+    &:hover {
+        background: lighten($color-primary, 5%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba($color-primary, 0.3);
+    }
+}
+
+// Mobile Menu Toggle
+.mobile-menu-toggle {
+    display: block;
+    color: $color-text-light;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    @include respond-to($large-screen) {
+        display: none;
+    }
+}

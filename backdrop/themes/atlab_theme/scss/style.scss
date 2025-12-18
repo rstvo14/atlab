@@ -1,0 +1,42 @@
+/* -------------------------------------------------
+   ATLAB Theme – Minimal SCSS (Overrides Only)
+   ------------------------------------------------- 
+   Most styles efficiently handled via Tailwind CDN in template.
+   This file ensures Backdrop core styles don't conflict.
+*/
+
+// Reset some core Backdrop weirdness
+body {
+    margin: 0;
+    padding: 0;
+}
+
+// Ensure Admin Bar (if logged in) doesn't break fixed header
+body.admin-menu {
+    header#main-header {
+        top: 32px !important; // Default admin bar height
+    }
+}
+
+// Scrollbar Styling (Optional, matches dark theme)
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2dd4bf;
+}
+
+// Ensure smooth scroll behavior
+html {
+    scroll-behavior: smooth;
+}

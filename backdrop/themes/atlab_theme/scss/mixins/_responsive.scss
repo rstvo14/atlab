@@ -1,0 +1,77 @@
+// _responsive.scss
+// Responsive mixins and helpers
+
+// Responsive breakpoint mixin
+// Usage: @include respond-to($large-screen) { ... }
+@mixin respond-to($breakpoint) {
+    @media (min-width: $breakpoint) {
+        @content;
+    }
+}
+
+// Container mixin - applies responsive max-width
+@mixin container {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+
+    @include respond-to($large-screen) {
+        max-width: 992px;
+    }
+
+    @include respond-to($xl-screen) {
+        max-width: 1200px;
+    }
+
+    @include respond-to($xxl-screen) {
+        max-width: 1400px;
+    }
+
+    @include respond-to($xxxl-screen) {
+        max-width: 1750px;
+    }
+}
+
+// Container padding mixin
+@mixin container-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @include respond-to($small-screen) {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+// Full width content - breaks out of container
+@mixin full-width {
+    float: none;
+    clear: both;
+    margin-left: -20px;
+    margin-right: -20px;
+
+    @include respond-to($small-screen) {
+        margin-left: -30px;
+        margin-right: -30px;
+    }
+
+    @include respond-to($large-screen) {
+        margin-left: calc(-50vw + 466px);
+        margin-right: calc(-50vw + 466px);
+    }
+
+    @include respond-to($xl-screen) {
+        margin-left: calc(-50vw + 570px);
+        margin-right: calc(-50vw + 570px);
+    }
+
+    @include respond-to($xxl-screen) {
+        margin-left: calc(-50vw + 670px);
+        margin-right: calc(-50vw + 670px);
+    }
+
+    @include respond-to($xxxl-screen) {
+        margin-left: calc(-50vw + 845px);
+        margin-right: calc(-50vw + 845px);
+    }
+}

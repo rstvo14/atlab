@@ -1,0 +1,180 @@
+// _layout.scss
+// Layout utilities and container classes
+
+// Base layout rules
+html {
+    background-color: $viewport-background-color;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+// Container width utility (can be used as class or extended)
+.container-width,
+%container-width {
+    @include container;
+}
+
+// Container padding utility
+.container-padding,
+%container-padding {
+    @include container-padding;
+}
+
+// Left-aligned container padding with calculated edge
+%container-padding-left {
+    padding-left: 20px;
+
+    @include respond-to($small-screen) {
+        padding-left: 30px;
+    }
+
+    @include respond-to($xl-screen) {
+        padding-right: 60px;
+    }
+
+    @include respond-to($xxxl-screen) {
+        padding-right: 80px;
+    }
+
+    @include respond-to($large-screen) {
+        padding-left: calc(50vw - 466px);
+    }
+
+    @include respond-to($xl-screen) {
+        padding-left: calc(50vw - 570px);
+    }
+
+    @include respond-to($xxl-screen) {
+        padding-left: calc(50vw - 670px);
+    }
+
+    @include respond-to($xxxl-screen) {
+        padding-left: calc(50vw - 845px);
+    }
+}
+
+// Right-aligned container padding with calculated edge
+%container-padding-right {
+    padding-right: 20px;
+
+    @include respond-to($small-screen) {
+        padding-right: 30px;
+    }
+
+    @include respond-to($xl-screen) {
+        padding-left: 60px;
+    }
+
+    @include respond-to($xxxl-screen) {
+        padding-left: 80px;
+    }
+
+    @include respond-to($large-screen) {
+        padding-right: calc(50vw - 466px);
+    }
+
+    @include respond-to($xl-screen) {
+        padding-right: calc(50vw - 570px);
+    }
+
+    @include respond-to($xxl-screen) {
+        padding-right: calc(50vw - 670px);
+    }
+
+    @include respond-to($xxxl-screen) {
+        padding-right: calc(50vw - 855px);
+    }
+}
+
+// Combined container utility
+.container,
+.container-inline,
+%container {
+    @extend %container-width;
+    @extend %container-padding;
+}
+
+// Full width content (breaks out of container)
+.full-width-content,
+%full-width-content {
+    @include full-width;
+}
+
+// Full width with padding maintained
+.full-width-padding,
+%full-width-padding {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @include respond-to($small-screen) {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+// Main content column width
+.main-col-width,
+%main-col-width {
+    max-width: 560px;
+
+    @include respond-to($xl-screen) {
+        max-width: 690px;
+    }
+
+    @include respond-to($xxl-screen) {
+        max-width: 820px;
+    }
+
+    @include respond-to($xxxl-screen) {
+        max-width: 1060px;
+    }
+}
+
+// Centered intro column width
+.centered-intro-col-width,
+%centered-intro-col-width {
+    max-width: 560px;
+
+    @include respond-to($medium-screen) {
+        max-width: 70%;
+    }
+}
+
+// Sidebar width utility
+.sidebar-width,
+%sidebar-width {
+    width: 100%;
+
+    @include respond-to($large-screen) {
+        max-width: 300px;
+    }
+
+    @include respond-to($xl-screen) {
+        max-width: 340px;
+    }
+
+    @include respond-to($xxl-screen) {
+        max-width: 360px;
+    }
+
+    @include respond-to($xxxl-screen) {
+        max-width: 420px;
+    }
+}

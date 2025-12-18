@@ -1,0 +1,28 @@
+// _colors.scss
+// ATL LAB Color Palette (Refined)
+
+// Primary Gradients (Teal to Cyan)
+$color-primary-start: #2DD4BF; // Teal 400
+$color-primary-end: #22D3EE; // Cyan 400
+$color-primary: #14B8A6; // Teal 500 (Base)
+
+// Secondary Gradients (Orange to Pink/Coral)
+$color-secondary-start: #F97316; // Orange 500
+$color-secondary-end: #EC4899; // Pink 500
+
+// Backgrounds (Slate 950 base)
+$color-bg-dark: #020617; // Slate 950
+$color-bg-card: rgba(15, 23, 42, 0.6); // Slate 900 with opacity
+$color-bg-surface: #1E293B;
+
+// Text
+$color-text-white: #FFFFFF;
+$color-text-light: #F1F5F9; // Slate 100
+$color-text-muted: #94A3B8; // Slate 400
+
+// Borders
+$color-border: rgba(51, 65, 85, 0.5); // Slate 700/50
+$color-border-hover: rgba(20, 184, 166, 0.5); // Teal 500/50
+
+// Interactive
+$color-accent: $color-primary;

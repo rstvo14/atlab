@@ -1,0 +1,17 @@
+name = ATL LAB
+description = Premium mobile-first theme for ATL LAB.
+backdrop = 1.x
+type = theme
+
+stylesheets[all][] = css/style.css
+
+scripts[] = js/script.js
+
+; Regions (customize as needed)
+regions[header] = Header
+regions[top] = Top
+regions[content] = Content
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+regions[bottom] = Bottom
+regions[footer] = Footer

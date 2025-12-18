@@ -1,0 +1,11 @@
+{
+    "name": "ensure-access-theme",
+    "private": true,
+    "devDependencies": {
+        "sass": "^1.80.0"
+    },
+    "scripts": {
+        "sass": "sass --no-source-map --style=compressed scss:css",
+        "watch": "sass --watch scss:css"
+    }
+}

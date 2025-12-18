@@ -1,0 +1,389 @@
+// _portfolio.scss - Modern Device Frames
+
+#our-work {
+  padding: 100px 0;
+  position: relative;
+  background: #0a1f3d; // Dark navy blue solid background
+
+  // Full width background
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 80px;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    background: linear-gradient(180deg, #fff 0%, #aaa 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.portfolio-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start; // CRITICAL: Force all items to align to the top
+  justify-content: flex-start; // Align left/start to handle odd items gracefully
+  gap: 60px 40px; // Row gap, Col gap
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.portfolio-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+
+  @include respond-to($small-screen) {
+    // Mobile: 2 columns (user preference)
+    width: calc(50% - 20px); // 2 columns (minus half gap)
+  }
+
+  @include respond-to($xl-screen) {
+    // iPad Pro and larger: 3 columns
+    width: calc(33.333% - 27px); // 3 columns (minus 2/3 gap approx)
+  }
+
+  &:hover {
+
+    .device-group,
+    .device-single {
+      transform: translateY(-10px) scale(1.02);
+    }
+  }
+
+  .meta {
+    width: 100%;
+    margin-top: 0px;
+    flex-grow: 1; // Ensures consistent height distribution if we stretch items
+
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      min-height: 2.2em; // Reserve lines for titles to prevent misalignment if wrapping occurs
+    }
+
+    p.role {
+      color: #dcb161;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    p.desc {
+      color: #ccc;
+      line-height: 1.6;
+      max-width: 500px;
+      margin-bottom: 20px;
+    }
+
+    a.view-work {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid #dcb161;
+      padding-bottom: 2px;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #dcb161;
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------------
+// CSS Device Frames - Uniform Heights for Alignment
+// ------------------------------------------------------------------
+
+.device-group,
+.device-single {
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+  display: flex;
+  align-items: flex-end; // Align devices to bottom of container
+  justify-content: center;
+  transition: transform 0.5s ease;
+  margin-bottom: 0; // Ensure no extra spacing
+
+  @include respond-to($medium-screen) {
+    min-height: 350px; // Fixed minimum height for alignment
+  }
+}
+
+// Override for specific single device layouts
+.device-single.monitor-only,
+.device-single.laptop-only,
+.device-single.tablet-only {
+  min-height: 250px;
+
+  @include respond-to($medium-screen) {
+    min-height: 350px; // Fixed minimum height for alignment
+  }
+}
+
+.device-single.phone-only {
+  min-height: 250px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include respond-to($medium-screen) {
+    min-height: 350px; // Fixed minimum height for alignment
+  }
+}
+
+// 1. Modern Laptop Frame (MacBook Pro style)
+.device-laptop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 85%;
+  z-index: 1;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+
+  .screen {
+    position: relative;
+    padding-top: 62.5%; // 16:10
+    overflow: hidden;
+    border-radius: 6px;
+    margin: 2%; // Thin bezel
+    background: #000;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // Notch (for modern MacBook Pro)
+  &::before {
+    content: "";
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15%;
+    height: 3%;
+    background: #000;
+    border-radius: 0 0 10px 10px;
+    z-index: 10;
+  }
+
+  // Base
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: -3%;
+    width: 106%;
+    height: 8px;
+    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
+// 2. Modern iPhone Frame (iPhone 14/15 Pro with Dynamic Island)
+.device-phone {
+  position: absolute;
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+  border-radius: 22px; // Adjusted to match 18px screen radius
+  z-index: 2;
+
+  // Contextual Positioning
+  .device-group & {
+    bottom: 30px;
+    right: 30px;
+    width: 22%;
+    transform: translateY(10%);
+
+    @include respond-to($medium-screen) {
+      bottom: 80px;
+    }
+  }
+
+  .device-single & {
+    position: relative;
+    width: 100%;
+    transform: none;
+    box-shadow: 0 40px 30px -15px rgba(0, 0, 0, 0.8);
+
+    @include respond-to($medium-screen) {
+      box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  .screen {
+    position: relative;
+    padding-top: 216%; // ~19.5:9
+    overflow: hidden;
+    border-radius: 18px;
+    margin: 3%; // Thin bezel
+    background: #000;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // Dynamic Island (modern iPhone)
+  &::before {
+    content: "";
+    position: absolute;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28%;
+    height: 2.5%;
+    background: #0a0a0a;
+    border-radius: 20px;
+    z-index: 10;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.8);
+  }
+}
+
+// 3. Refined Black iMac (M1/M3 Style - Sleek & Modern)
+.device-monitor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 10px;
+  box-shadow: 0 35px 70px -20px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  padding: 0.8%; // Very thin bezel
+
+  .screen {
+    position: relative;
+    padding-top: 56.25%; // 16:9
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // iMac chin (sleeker proportions)
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35%;
+    height: 25px;
+    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  // iMac stand (refined taper)
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5%;
+    height: 30px;
+    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+    clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+// 4. Modern Tablet Frame (iPad Pro style)
+.device-tablet {
+  position: absolute;
+  background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+  border-radius: 24px; // More rounded for modern iPad
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+  .device-group & {
+    top: 0;
+    left: 0;
+    width: 85%;
+    z-index: 1;
+  }
+
+  .device-single & {
+    position: relative;
+    width: 100%;
+  }
+
+  .screen {
+    position: relative;
+    padding-top: 75%; // 4:3 Aspect Ratio
+    margin: 2%; // Thin bezel for modern design
+    border-radius: 18px;
+    background: #000;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+// Browser Screenshot (for simple browser screenshots without device frames)
+.browser-screenshot {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-start; // Align to top
+  justify-content: center;
+  transition: transform 0.5s ease;
+  margin-bottom: 0;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  .portfolio-item:hover & {
+    transform: translateY(-10px) scale(1.02);
+  }
+}

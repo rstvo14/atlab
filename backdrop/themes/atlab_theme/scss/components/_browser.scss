@@ -1,0 +1,18 @@
+// Browser Screenshot Display (Clean, Simple)
+.device-browser {
+    position: relative;
+    width: 100%;
+
+    .device-single & {
+        position: relative;
+        width: 100%;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+    }
+}

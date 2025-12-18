@@ -1,0 +1,22 @@
+// _typography.scss
+
+// Font Families
+$font-primary: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+$font-secondary: 'Inter', system-ui, -apple-system, sans-serif;
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Line Heights
+$line-height-base: 1.6;
+$line-height-heading: 1.2;
+
+// Sizes
+$h1-size-desktop: 4rem;
+$h1-size-mobile: 2.5rem;
+$h2-size-desktop: 3rem;
+$h2-size-mobile: 2rem;
+$body-size: 1.125rem;
